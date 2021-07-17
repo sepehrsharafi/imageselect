@@ -215,7 +215,7 @@ namespace ImageSelector
                 }
             }
 
-            //capture down arrow key
+            //capture Enter arrow key
             if (keyData == Keys.Enter)
             {
                 if (!Directory.Exists(SelectedFolderPath))
