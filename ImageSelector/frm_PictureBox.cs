@@ -51,20 +51,24 @@ namespace ImageSelector
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
             if (!string.IsNullOrEmpty(txtNotes.Text))
             {
                 using (StreamWriter sw = File.AppendText(notepath))
                 {
+                    //File.WriteAllText(notepath, String.Empty); // Clear file
                     sw.Write(txtNotes.Text); // Write text to .txt file
+                    
+               
                 }
             }
-
-            
-
         }
 
         private void frm_PictureBox_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frm1_PictureBox_Click(object sender, EventArgs e)
         {
 
         }

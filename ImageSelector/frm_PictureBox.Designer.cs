@@ -46,6 +46,7 @@ namespace ImageSelector
             this.frm1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.frm1_PictureBox.TabIndex = 0;
             this.frm1_PictureBox.TabStop = false;
+            this.frm1_PictureBox.Click += new System.EventHandler(this.frm1_PictureBox_Click);
             // 
             // txtNotes
             // 

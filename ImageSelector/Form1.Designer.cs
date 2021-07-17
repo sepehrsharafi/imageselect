@@ -48,6 +48,11 @@ namespace ImageSelector
             this.btnOpen = new System.Windows.Forms.Button();
             this.lblFileName = new DarkUI.Controls.DarkLabel();
             this.txtNotes = new DarkUI.Controls.DarkTextBox();
+            this.btnRotateRight = new DarkUI.Controls.DarkButton();
+            this.btnRotateLeft = new DarkUI.Controls.DarkButton();
+            this.lblNull = new DarkUI.Controls.DarkLabel();
+            this.btnZoomIn = new DarkUI.Controls.DarkButton();
+            this.btnZoomOut = new DarkUI.Controls.DarkButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgSelectedImages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCurrentImage)).BeginInit();
             this.SuspendLayout();
@@ -93,6 +98,8 @@ namespace ImageSelector
             this.dgSelectedImages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgSelectedImages.Size = new System.Drawing.Size(155, 618);
             this.dgSelectedImages.TabIndex = 4;
+            this.dgSelectedImages.TabStop = false;
+            this.dgSelectedImages.DataSourceChanged += new System.EventHandler(this.dgSelectedImages_DataSourceChanged);
             this.dgSelectedImages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSelectedImages_CellClick);
             this.dgSelectedImages.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSelectedImages_CellContentClick);
             this.dgSelectedImages.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSelectedImages_CellDoubleClick);
@@ -140,6 +147,7 @@ namespace ImageSelector
             this.pbCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbCurrentImage.TabIndex = 5;
             this.pbCurrentImage.TabStop = false;
+            this.pbCurrentImage.Click += new System.EventHandler(this.pbCurrentImage_Click);
             // 
             // btnNext
             // 
@@ -249,19 +257,78 @@ namespace ImageSelector
             this.txtNotes.Size = new System.Drawing.Size(1094, 30);
             this.txtNotes.TabIndex = 15;
             // 
+            // btnRotateRight
+            // 
+            this.btnRotateRight.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnRotateRight.Location = new System.Drawing.Point(880, 589);
+            this.btnRotateRight.Name = "btnRotateRight";
+            this.btnRotateRight.Padding = new System.Windows.Forms.Padding(5);
+            this.btnRotateRight.Size = new System.Drawing.Size(83, 24);
+            this.btnRotateRight.TabIndex = 6;
+            this.btnRotateRight.Text = "Rotate Right";
+            this.btnRotateRight.Click += new System.EventHandler(this.btnRotateRight_Click);
+            // 
+            // btnRotateLeft
+            // 
+            this.btnRotateLeft.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnRotateLeft.Location = new System.Drawing.Point(777, 589);
+            this.btnRotateLeft.Name = "btnRotateLeft";
+            this.btnRotateLeft.Padding = new System.Windows.Forms.Padding(5);
+            this.btnRotateLeft.Size = new System.Drawing.Size(83, 24);
+            this.btnRotateLeft.TabIndex = 9;
+            this.btnRotateLeft.Text = "Rotate left";
+            this.btnRotateLeft.Click += new System.EventHandler(this.btnRotateLeft_Click);
+            // 
+            // lblNull
+            // 
+            this.lblNull.AutoSize = true;
+            this.lblNull.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.lblNull.Location = new System.Drawing.Point(1066, 35);
+            this.lblNull.Name = "lblNull";
+            this.lblNull.Size = new System.Drawing.Size(287, 525);
+            this.lblNull.TabIndex = 16;
+            this.lblNull.Text = resources.GetString("lblNull.Text");
+            // 
+            // btnZoomIn
+            // 
+            this.btnZoomIn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnZoomIn.Location = new System.Drawing.Point(190, 589);
+            this.btnZoomIn.Name = "btnZoomIn";
+            this.btnZoomIn.Padding = new System.Windows.Forms.Padding(5);
+            this.btnZoomIn.Size = new System.Drawing.Size(97, 23);
+            this.btnZoomIn.TabIndex = 7;
+            this.btnZoomIn.Text = "Zoom In";
+            this.btnZoomIn.Click += new System.EventHandler(this.btnPrv_Click);
+            // 
+            // btnZoomOut
+            // 
+            this.btnZoomOut.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnZoomOut.Location = new System.Drawing.Point(70, 589);
+            this.btnZoomOut.Name = "btnZoomOut";
+            this.btnZoomOut.Padding = new System.Windows.Forms.Padding(5);
+            this.btnZoomOut.Size = new System.Drawing.Size(97, 23);
+            this.btnZoomOut.TabIndex = 10;
+            this.btnZoomOut.Text = "Zoom Out";
+            this.btnZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
+            // 
             // frmImageSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1175, 654);
+            this.Controls.Add(this.lblNull);
             this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.txtNotes);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnSelect);
+            this.Controls.Add(this.btnZoomOut);
             this.Controls.Add(this.btnPrv10);
+            this.Controls.Add(this.btnRotateLeft);
             this.Controls.Add(this.btnNext10);
+            this.Controls.Add(this.btnRotateRight);
             this.Controls.Add(this.dgSelectedImages);
             this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnZoomIn);
             this.Controls.Add(this.btnPrv);
             this.Controls.Add(this.darkDockPanel1);
             this.Controls.Add(this.txtAddress);
@@ -298,6 +365,11 @@ namespace ImageSelector
         private System.Windows.Forms.Button btnOpen;
         private DarkUI.Controls.DarkLabel lblFileName;
         private DarkUI.Controls.DarkTextBox txtNotes;
+        private DarkUI.Controls.DarkButton btnRotateRight;
+        private DarkUI.Controls.DarkButton btnRotateLeft;
+        private DarkUI.Controls.DarkLabel lblNull;
+        private DarkUI.Controls.DarkButton btnZoomIn;
+        private DarkUI.Controls.DarkButton btnZoomOut;
     }
 }
 
