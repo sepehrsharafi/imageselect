@@ -24,6 +24,12 @@ namespace ImageSelector
 
         PictureBox org;
 
+        // pan
+        private Point startingPoint = Point.Empty;
+        private Point movingPoint = Point.Empty;
+        private bool panning = false;
+        Image tmpImage;
+
         public string SelectedFolderPath
         {
             get
@@ -42,18 +48,7 @@ namespace ImageSelector
 
         private void frmImageSelector_Load(object sender, EventArgs e)
         {
-
-            TrackBar.Minimum = 1;
-            TrackBar.Maximum = 6;
-            TrackBar.SmallChange = 1;
-            TrackBar.LargeChange = 1;
-            TrackBar.UseWaitCursor = false;
-
             this.DoubleBuffered = true;
-
-            org = new PictureBox();
-            org.Image = pbCurrentImage.Image;
-
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -102,6 +97,9 @@ namespace ImageSelector
 
             pbCurrentImage.Image = img;
             lblFileName.Text = Path.GetFileName(images[CurrentIndex]);
+
+            org = new PictureBox();
+            org.Image = pbCurrentImage.Image;
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -228,12 +226,12 @@ namespace ImageSelector
 
         private void btnZoomIn_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnZoomOut_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dgSelectedImages_DataSourceChanged(object sender, EventArgs e)
@@ -243,13 +241,14 @@ namespace ImageSelector
 
         Image ZoomPicture(Image img, Size size)
         {
-            using (Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * size.Width),
-                Convert.ToInt32(img.Height * size.Height)))
-            {
-                Graphics gpu = Graphics.FromImage(bm);
-                gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                return bm;
-            }
+            double width = 1 + size.Width / 5.0;
+            double height = 1 + size.Width / 5.0;
+
+            Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * width),
+                Convert.ToInt32(img.Height * height));
+            Graphics gpu = Graphics.FromImage(bm);
+            gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            return bm;
         }
 
         private void btnRotateRight_Click(object sender, EventArgs e)
@@ -262,11 +261,6 @@ namespace ImageSelector
         {
             pbCurrentImage.Image.RotateFlip(RotateFlipType.Rotate90FlipXY);
             pbCurrentImage.Refresh();
-        }
-
-        private void pbCurrentImage_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void frmImageSelector_KeyDown(object sender, KeyEventArgs e)
@@ -367,8 +361,44 @@ namespace ImageSelector
         {
             if (TrackBar.Value != 0)
             {
-                //pbCurrentImage.Image = null;
-                pbCurrentImage.Image = ZoomPicture(org.Image, new Size(TrackBar.Value, TrackBar.Value));
+                pbCurrentImage.SizeMode = PictureBoxSizeMode.AutoSize;
+                pbCurrentImage.Image = null;
+                pbCurrentImage.Image = ZoomPicture(org.Image, new Size(TrackBar.Value, TrackBar.Value)); ;
+            }
+            else
+            {
+                pbCurrentImage.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+
+        private void pbCurrentImage_MouseUp(object sender, MouseEventArgs e)
+        {
+            panning = false;
+        }
+
+        private void pbCurrentImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (panning)
+            {
+                movingPoint = new Point(e.Location.X - startingPoint.X,
+                                        e.Location.Y - startingPoint.Y);
+                pbCurrentImage.Invalidate();
+            }
+        }
+
+        private void pbCurrentImage_MouseDown(object sender, MouseEventArgs e)
+        {
+            panning = true;
+            startingPoint = new Point(e.Location.X - movingPoint.X,
+                                      e.Location.Y - movingPoint.Y);
+        }
+
+        private void pbCurrentImage_Paint(object sender, PaintEventArgs e)
+        {
+            if (pbCurrentImage.Image != null)
+            {
+                e.Graphics.Clear(Color.Black);
+                e.Graphics.DrawImage(pbCurrentImage.Image, movingPoint);
             }
         }
     }

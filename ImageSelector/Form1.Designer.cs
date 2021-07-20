@@ -30,15 +30,14 @@ namespace ImageSelector
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImageSelector));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.txtAddress = new DarkUI.Controls.DarkTextBox();
             this.dgSelectedImages = new System.Windows.Forms.DataGridView();
             this.colImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.colRemove = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.pbCurrentImage = new System.Windows.Forms.PictureBox();
             this.btnNext = new DarkUI.Controls.DarkButton();
             this.btnPrv = new DarkUI.Controls.DarkButton();
             this.darkDockPanel1 = new DarkUI.Docking.DarkDockPanel();
@@ -52,9 +51,12 @@ namespace ImageSelector
             this.btnRotateLeft = new DarkUI.Controls.DarkButton();
             this.lblNull = new DarkUI.Controls.DarkLabel();
             this.TrackBar = new System.Windows.Forms.TrackBar();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pbCurrentImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgSelectedImages)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCurrentImage)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
@@ -74,7 +76,7 @@ namespace ImageSelector
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.ReadOnly = true;
             this.txtAddress.Size = new System.Drawing.Size(1175, 30);
-            this.txtAddress.TabIndex = 1;
+            this.txtAddress.TabIndex = 9;
             // 
             // dgSelectedImages
             // 
@@ -108,24 +110,24 @@ namespace ImageSelector
             // 
             // colImage
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            dataGridViewCellStyle1.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle1.NullValue")));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.colImage.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            dataGridViewCellStyle7.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle7.NullValue")));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.colImage.DefaultCellStyle = dataGridViewCellStyle7;
             this.colImage.HeaderText = "Image";
             this.colImage.Name = "colImage";
             this.colImage.Width = 120;
             // 
             // colRemove
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Red;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Red;
-            this.colRemove.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Red;
+            this.colRemove.DefaultCellStyle = dataGridViewCellStyle8;
             this.colRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colRemove.HeaderText = "Remove";
             this.colRemove.Name = "colRemove";
@@ -133,20 +135,6 @@ namespace ImageSelector
             this.colRemove.ToolTipText = "Remove";
             this.colRemove.UseColumnTextForButtonValue = true;
             this.colRemove.Width = 40;
-            // 
-            // pbCurrentImage
-            // 
-            this.pbCurrentImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbCurrentImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pbCurrentImage.Location = new System.Drawing.Point(-1, 86);
-            this.pbCurrentImage.Name = "pbCurrentImage";
-            this.pbCurrentImage.Size = new System.Drawing.Size(1014, 491);
-            this.pbCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbCurrentImage.TabIndex = 5;
-            this.pbCurrentImage.TabStop = false;
-            this.pbCurrentImage.Click += new System.EventHandler(this.pbCurrentImage_Click);
             // 
             // btnNext
             // 
@@ -230,7 +218,7 @@ namespace ImageSelector
             this.btnOpen.Location = new System.Drawing.Point(1092, 0);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(83, 30);
-            this.btnOpen.TabIndex = 1;
+            this.btnOpen.TabIndex = 10;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = false;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
@@ -256,12 +244,13 @@ namespace ImageSelector
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(1094, 30);
-            this.txtNotes.TabIndex = 10;
+            this.txtNotes.TabIndex = 1;
             // 
             // btnRotateRight
             // 
+            this.btnRotateRight.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnRotateRight.Image = global::ImageSelector.Properties.Resources.image__2_;
-            this.btnRotateRight.Location = new System.Drawing.Point(682, 42);
+            this.btnRotateRight.Location = new System.Drawing.Point(644, 544);
             this.btnRotateRight.Name = "btnRotateRight";
             this.btnRotateRight.Padding = new System.Windows.Forms.Padding(5);
             this.btnRotateRight.Size = new System.Drawing.Size(30, 30);
@@ -270,9 +259,10 @@ namespace ImageSelector
             // 
             // btnRotateLeft
             // 
+            this.btnRotateLeft.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnRotateLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnRotateLeft.Image = global::ImageSelector.Properties.Resources.image__1_1;
-            this.btnRotateLeft.Location = new System.Drawing.Point(636, 42);
+            this.btnRotateLeft.Location = new System.Drawing.Point(396, 543);
             this.btnRotateLeft.Name = "btnRotateLeft";
             this.btnRotateLeft.Padding = new System.Windows.Forms.Padding(5);
             this.btnRotateLeft.Size = new System.Drawing.Size(30, 30);
@@ -291,19 +281,45 @@ namespace ImageSelector
             // 
             // TrackBar
             // 
-            this.TrackBar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TrackBar.Location = new System.Drawing.Point(235, 36);
-            this.TrackBar.Maximum = 6;
+            this.TrackBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.TrackBar.LargeChange = 1;
+            this.TrackBar.Location = new System.Drawing.Point(428, 544);
+            this.TrackBar.Maximum = 5;
             this.TrackBar.Name = "TrackBar";
-            this.TrackBar.Size = new System.Drawing.Size(245, 45);
+            this.TrackBar.Size = new System.Drawing.Size(210, 45);
             this.TrackBar.TabIndex = 17;
             this.TrackBar.Scroll += new System.EventHandler(this.TrackBar_Scroll);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.pbCurrentImage);
+            this.panel1.Location = new System.Drawing.Point(12, 49);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(993, 488);
+            this.panel1.TabIndex = 18;
+            // 
+            // pbCurrentImage
+            // 
+            this.pbCurrentImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbCurrentImage.Location = new System.Drawing.Point(0, 0);
+            this.pbCurrentImage.Name = "pbCurrentImage";
+            this.pbCurrentImage.Size = new System.Drawing.Size(993, 488);
+            this.pbCurrentImage.TabIndex = 0;
+            this.pbCurrentImage.TabStop = false;
+            this.pbCurrentImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCurrentImage_Paint);
+            this.pbCurrentImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbCurrentImage_MouseDown);
+            this.pbCurrentImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbCurrentImage_MouseMove);
+            this.pbCurrentImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbCurrentImage_MouseUp);
             // 
             // frmImageSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1175, 654);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.TrackBar);
             this.Controls.Add(this.lblNull);
             this.Controls.Add(this.lblFileName);
@@ -319,7 +335,6 @@ namespace ImageSelector
             this.Controls.Add(this.btnPrv);
             this.Controls.Add(this.darkDockPanel1);
             this.Controls.Add(this.txtAddress);
-            this.Controls.Add(this.pbCurrentImage);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "frmImageSelector";
@@ -330,8 +345,9 @@ namespace ImageSelector
             this.DoubleClick += new System.EventHandler(this.frmImageSelector_DoubleClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmImageSelector_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgSelectedImages)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCurrentImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbCurrentImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,7 +358,6 @@ namespace ImageSelector
         private System.Windows.Forms.ImageList imageList1;
         private DarkUI.Controls.DarkTextBox txtAddress;
         private System.Windows.Forms.DataGridView dgSelectedImages;
-        private System.Windows.Forms.PictureBox pbCurrentImage;
         private System.Windows.Forms.DataGridViewImageColumn colImage;
         private System.Windows.Forms.DataGridViewButtonColumn colRemove;
         private DarkUI.Controls.DarkButton btnNext;
@@ -360,6 +375,8 @@ namespace ImageSelector
         private DarkUI.Controls.DarkButton btnZoomIn;
         private DarkUI.Controls.DarkButton btnZoomOut;
         private System.Windows.Forms.TrackBar TrackBar;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pbCurrentImage;
     }
 }
 
