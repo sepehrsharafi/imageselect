@@ -53,12 +53,13 @@ namespace ImageSelector
         {
             if (!string.IsNullOrEmpty(txtNotes.Text))
             {
-                using (StreamWriter sw = File.AppendText(notepath))
+                using (FileStream sw = File.OpenWrite(notepath))
                 {
+                    byte[] bytes = Encoding.UTF8.GetBytes(txtNotes.Text);
+                    sw.Write(bytes, 0, bytes.Length);
                     //File.WriteAllText(notepath, String.Empty); // Clear file
-                    sw.Write(txtNotes.Text); // Write text to .txt file
-                    
-               
+                    //sw.Write(txtNotes.Text); // Write text to .txt file
+                    //sw.Close();
                 }
             }
         }

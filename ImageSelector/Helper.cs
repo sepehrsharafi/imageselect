@@ -12,6 +12,7 @@ namespace ImageSelector
 {
     class Helper
     {
+        string[] images;
         public void FillImageList(string path, FlowLayoutPanel panel)
         {
         }
@@ -89,6 +90,35 @@ namespace ImageSelector
             {
                 file.Delete();
             }
+        }
+        
+        public static void SelectImage(string SelectedFolderPath, int CurrentIndex, string txtNotes, string txtAddress, string currentImagePath, Image[] images, DataGridView dgSelectedImages)
+        {
+            if (!Directory.Exists(SelectedFolderPath))
+            {
+                Directory.CreateDirectory(SelectedFolderPath);
+            }
+
+            currentImagePath = images[CurrentIndex].ToString();
+
+            DirectoryInfo source = new DirectoryInfo(txtAddress);
+            DirectoryInfo dest = new DirectoryInfo(SelectedFolderPath);
+
+            Helper.CopyFiles(source, dest, true, Path.GetFileNameWithoutExtension(currentImagePath) + ".*");
+
+            Helper.FillSelectedImages(SelectedFolderPath, dgSelectedImages);
+
+            string NotesPath = SelectedFolderPath + @"\" + Path.GetFileNameWithoutExtension(currentImagePath) + ".txt";
+
+            File.Create(NotesPath).Close(); // Create file
+
+            using (StreamWriter sw = File.AppendText(NotesPath))
+            {
+                sw.Write(txtNotes); // Write text to .txt file
+                sw.Close();
+            }
+
+            txtNotes = " ";
         }
     }
 }

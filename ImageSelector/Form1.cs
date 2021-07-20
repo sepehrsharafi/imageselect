@@ -22,7 +22,7 @@ namespace ImageSelector
 
         string NotesPath;
 
-        int ZoomInedx = 0;
+        PictureBox org;
 
         public string SelectedFolderPath
         {
@@ -42,8 +42,17 @@ namespace ImageSelector
 
         private void frmImageSelector_Load(object sender, EventArgs e)
         {
-            //dgSelectedImages.Columns["Flags"].DefaultCellStyle.NullValue = null;
-            //dgSelectedImages.Rows[index].Cells["CellName"].Value = isFlag ? Properties.Resources.FlagImage : new Bitmap(1, 1);
+
+            TrackBar.Minimum = 1;
+            TrackBar.Maximum = 6;
+            TrackBar.SmallChange = 1;
+            TrackBar.LargeChange = 1;
+            TrackBar.UseWaitCursor = false;
+
+            this.DoubleBuffered = true;
+
+            org = new PictureBox();
+            org.Image = pbCurrentImage.Image;
 
         }
 
@@ -62,7 +71,6 @@ namespace ImageSelector
                     ShowImage();
                 }
             }
-           
         }
 
         private void dgSelectedImages_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -98,7 +106,7 @@ namespace ImageSelector
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (CurrentIndex < images.Length-1)
+            if (CurrentIndex < images.Length - 1)
             {
                 CurrentIndex++;
                 ShowImage();
@@ -160,6 +168,7 @@ namespace ImageSelector
             using (StreamWriter sw = File.AppendText(NotesPath))
             {
                 sw.Write(txtNotes.Text); // Write text to .txt file
+                sw.Close();
             }
 
             txtNotes.Clear();
@@ -171,79 +180,6 @@ namespace ImageSelector
         private void frmImageSelector_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            //capture left arrow key
-            if (keyData == Keys.Left)
-            {
-                if (CurrentIndex > 0)
-                {
-                    CurrentIndex--;
-                    ShowImage();
-                }
-            }
-
-            //capture right arrow key
-            if (keyData == Keys.Right)
-            {
-                if (CurrentIndex < images.Length)
-                {
-                    CurrentIndex++;
-                    ShowImage();
-                }
-            }
-
-            //capture up arrow key
-            if (keyData == Keys.Up)
-            {
-                if (CurrentIndex < images.Length - 10)
-                {
-                    CurrentIndex = CurrentIndex + 10;
-                    ShowImage();
-                }
-            }
-
-            //capture down arrow key
-            if (keyData == Keys.Down)
-            {
-                if (CurrentIndex > 9)
-                {
-                    CurrentIndex = CurrentIndex - 10;
-                    ShowImage();
-                }
-            }
-
-            //capture Enter arrow key
-            if (keyData == Keys.Enter)
-            {
-                if (!Directory.Exists(SelectedFolderPath))
-                {
-                    Directory.CreateDirectory(SelectedFolderPath);
-                }
-
-                string currentImagePath = images[CurrentIndex];
-
-                DirectoryInfo source = new DirectoryInfo(txtAddress.Text);
-                DirectoryInfo dest = new DirectoryInfo(SelectedFolderPath);
-
-                Helper.CopyFiles(source, dest, true, Path.GetFileNameWithoutExtension(currentImagePath) + ".*");
-
-                Helper.FillSelectedImages(SelectedFolderPath, dgSelectedImages);
-
-                NotesPath = SelectedFolderPath + @"\" + Path.GetFileNameWithoutExtension(currentImagePath) + ".txt";
-
-                File.Create(NotesPath).Close(); // Create file
-
-                using (StreamWriter sw = File.AppendText(NotesPath))
-                {
-                    sw.Write(txtNotes.Text); // Write text to .txt file
-                }
-
-                txtNotes.Clear();
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void dgSelectedImages_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -262,10 +198,6 @@ namespace ImageSelector
                 Helper.FillSelectedImages(SelectedFolderPath, dgSelectedImages);
             }
             //(dgSelectedImages.Rows.Remove);
-
-
-           
-
 
         }
 
@@ -296,12 +228,12 @@ namespace ImageSelector
 
         private void btnZoomIn_Click(object sender, EventArgs e)
         {
-            ZoomInedx = -1;
+            
         }
 
         private void btnZoomOut_Click(object sender, EventArgs e)
         {
-            ZoomInedx = +1;
+            
         }
 
         private void dgSelectedImages_DataSourceChanged(object sender, EventArgs e)
@@ -311,11 +243,13 @@ namespace ImageSelector
 
         Image ZoomPicture(Image img, Size size)
         {
-            Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * size.Width),
-                Convert.ToInt32(img.Height * size.Height));
-            Graphics gpu = Graphics.FromImage(bm);
-            gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            return bm;
+            using (Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * size.Width),
+                Convert.ToInt32(img.Height * size.Height)))
+            {
+                Graphics gpu = Graphics.FromImage(bm);
+                gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                return bm;
+            }
         }
 
         private void btnRotateRight_Click(object sender, EventArgs e)
@@ -333,6 +267,109 @@ namespace ImageSelector
         private void pbCurrentImage_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmImageSelector_KeyDown(object sender, KeyEventArgs e)
+        {
+            //capture left arrow key
+            if (e.KeyCode == Keys.Left)
+            {
+                if (CurrentIndex > 0)
+                {
+                    CurrentIndex--;
+                    ShowImage();
+                }
+            }
+
+            //capture right arrow key
+            if (e.KeyCode == Keys.Right)
+            {
+                if (CurrentIndex < images.Length)
+                {
+                    CurrentIndex++;
+                    ShowImage();
+                }
+            }
+
+            //capture up arrow key
+            if (e.KeyCode == Keys.Up)
+            {
+                if (CurrentIndex < images.Length - 10)
+                {
+                    CurrentIndex = CurrentIndex + 10;
+                    ShowImage();
+                }
+            }
+
+            //capture down arrow key
+            if (e.KeyCode == Keys.Down)
+            {
+                if (CurrentIndex > 9)
+                {
+                    CurrentIndex = CurrentIndex - 10;
+                    ShowImage();
+                }
+            }
+
+            //Rotate Right
+            if (e.KeyCode == Keys.Right && e.Control)
+            {
+                pbCurrentImage.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                pbCurrentImage.Refresh();
+            }
+
+            //Rotate Left
+            if (e.KeyCode == Keys.Left && e.Control)
+            {
+                pbCurrentImage.Image.RotateFlip(RotateFlipType.Rotate90FlipXY);
+                pbCurrentImage.Refresh();
+            }
+
+            //capture Enter arrow key
+            if (e.KeyCode == Keys.Enter && e.Control)
+            {
+                if (!Directory.Exists(SelectedFolderPath))
+                {
+                    Directory.CreateDirectory(SelectedFolderPath);
+                }
+
+                string currentImagePath = images[CurrentIndex];
+
+                DirectoryInfo source = new DirectoryInfo(txtAddress.Text);
+                DirectoryInfo dest = new DirectoryInfo(SelectedFolderPath);
+
+                Helper.CopyFiles(source, dest, true, Path.GetFileNameWithoutExtension(currentImagePath) + ".*");
+
+                Helper.FillSelectedImages(SelectedFolderPath, dgSelectedImages);
+
+                NotesPath = SelectedFolderPath + @"\" + Path.GetFileNameWithoutExtension(currentImagePath) + ".txt";
+
+                File.Create(NotesPath).Close(); // Create file
+
+                using (StreamWriter sw = File.AppendText(NotesPath))
+                {
+                    sw.Write(txtNotes.Text); // Write text to .txt file
+                    sw.Close();
+                }
+
+                txtNotes.Clear();
+
+                //byte[] bytes = Convert.FromBase64String(images[CurrentIndex]);
+
+                //var image = GetImage(images[CurrentIndex]);
+
+
+                //Helper.SelectImage(SelectedFolderPath, CurrentIndex, txtNotes.Text, txtAddress.Text, currentImagePath, image[], dgSelectedImages);
+            }
+        }
+
+        private void TrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (TrackBar.Value != 0)
+            {
+                //pbCurrentImage.Image = null;
+                pbCurrentImage.Image = ZoomPicture(org.Image, new Size(TrackBar.Value, TrackBar.Value));
+            }
         }
     }
 }
