@@ -30,9 +30,9 @@ namespace ImageSelector
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImageSelector));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.txtAddress = new DarkUI.Controls.DarkTextBox();
             this.dgSelectedImages = new System.Windows.Forms.DataGridView();
@@ -49,13 +49,12 @@ namespace ImageSelector
             this.txtNotes = new DarkUI.Controls.DarkTextBox();
             this.btnRotateRight = new DarkUI.Controls.DarkButton();
             this.btnRotateLeft = new DarkUI.Controls.DarkButton();
-            this.lblNull = new DarkUI.Controls.DarkLabel();
             this.TrackBar = new System.Windows.Forms.TrackBar();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlContainer = new System.Windows.Forms.Panel();
             this.pbCurrentImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgSelectedImages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pnlContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCurrentImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,7 +74,7 @@ namespace ImageSelector
             this.txtAddress.Multiline = true;
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.ReadOnly = true;
-            this.txtAddress.Size = new System.Drawing.Size(1175, 30);
+            this.txtAddress.Size = new System.Drawing.Size(1223, 30);
             this.txtAddress.TabIndex = 9;
             // 
             // dgSelectedImages
@@ -90,7 +89,7 @@ namespace ImageSelector
             this.dgSelectedImages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colImage,
             this.colRemove});
-            this.dgSelectedImages.Location = new System.Drawing.Point(1020, 35);
+            this.dgSelectedImages.Location = new System.Drawing.Point(1068, 35);
             this.dgSelectedImages.Name = "dgSelectedImages";
             this.dgSelectedImages.RowHeadersVisible = false;
             this.dgSelectedImages.RowTemplate.Height = 100;
@@ -100,6 +99,7 @@ namespace ImageSelector
             this.dgSelectedImages.Size = new System.Drawing.Size(155, 618);
             this.dgSelectedImages.TabIndex = 4;
             this.dgSelectedImages.TabStop = false;
+            this.dgSelectedImages.Visible = false;
             this.dgSelectedImages.DataSourceChanged += new System.EventHandler(this.dgSelectedImages_DataSourceChanged);
             this.dgSelectedImages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSelectedImages_CellClick);
             this.dgSelectedImages.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSelectedImages_CellContentClick);
@@ -110,24 +110,24 @@ namespace ImageSelector
             // 
             // colImage
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            dataGridViewCellStyle7.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle7.NullValue")));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.colImage.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            dataGridViewCellStyle3.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle3.NullValue")));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.colImage.DefaultCellStyle = dataGridViewCellStyle3;
             this.colImage.HeaderText = "Image";
             this.colImage.Name = "colImage";
             this.colImage.Width = 120;
             // 
             // colRemove
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Red;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Red;
-            this.colRemove.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Red;
+            this.colRemove.DefaultCellStyle = dataGridViewCellStyle4;
             this.colRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colRemove.HeaderText = "Remove";
             this.colRemove.Name = "colRemove";
@@ -140,7 +140,7 @@ namespace ImageSelector
             // 
             this.btnNext.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnNext.ImagePadding = 2;
-            this.btnNext.Location = new System.Drawing.Point(543, 589);
+            this.btnNext.Location = new System.Drawing.Point(567, 589);
             this.btnNext.Name = "btnNext";
             this.btnNext.Padding = new System.Windows.Forms.Padding(5);
             this.btnNext.Size = new System.Drawing.Size(97, 23);
@@ -152,7 +152,7 @@ namespace ImageSelector
             // 
             this.btnPrv.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnPrv.ImagePadding = 3;
-            this.btnPrv.Location = new System.Drawing.Point(430, 589);
+            this.btnPrv.Location = new System.Drawing.Point(454, 589);
             this.btnPrv.Name = "btnPrv";
             this.btnPrv.Padding = new System.Windows.Forms.Padding(5);
             this.btnPrv.Size = new System.Drawing.Size(97, 23);
@@ -164,7 +164,7 @@ namespace ImageSelector
             // 
             this.darkDockPanel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.darkDockPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.darkDockPanel1.Location = new System.Drawing.Point(-1, 579);
+            this.darkDockPanel1.Location = new System.Drawing.Point(23, 579);
             this.darkDockPanel1.Name = "darkDockPanel1";
             this.darkDockPanel1.Size = new System.Drawing.Size(1175, 42);
             this.darkDockPanel1.TabIndex = 8;
@@ -172,7 +172,7 @@ namespace ImageSelector
             // btnNext10
             // 
             this.btnNext10.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnNext10.Location = new System.Drawing.Point(644, 589);
+            this.btnNext10.Location = new System.Drawing.Point(668, 589);
             this.btnNext10.Name = "btnNext10";
             this.btnNext10.Padding = new System.Windows.Forms.Padding(5);
             this.btnNext10.Size = new System.Drawing.Size(97, 23);
@@ -183,7 +183,7 @@ namespace ImageSelector
             // btnPrv10
             // 
             this.btnPrv10.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnPrv10.Location = new System.Drawing.Point(329, 589);
+            this.btnPrv10.Location = new System.Drawing.Point(353, 589);
             this.btnPrv10.Name = "btnPrv10";
             this.btnPrv10.Padding = new System.Windows.Forms.Padding(5);
             this.btnPrv10.Size = new System.Drawing.Size(97, 23);
@@ -199,7 +199,7 @@ namespace ImageSelector
             this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelect.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSelect.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSelect.Location = new System.Drawing.Point(1093, 624);
+            this.btnSelect.Location = new System.Drawing.Point(1141, 624);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(81, 30);
             this.btnSelect.TabIndex = 11;
@@ -215,7 +215,7 @@ namespace ImageSelector
             this.btnOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnOpen.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnOpen.Location = new System.Drawing.Point(1092, 0);
+            this.btnOpen.Location = new System.Drawing.Point(1140, 0);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(83, 30);
             this.btnOpen.TabIndex = 10;
@@ -243,14 +243,14 @@ namespace ImageSelector
             this.txtNotes.Location = new System.Drawing.Point(0, 624);
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(1094, 30);
+            this.txtNotes.Size = new System.Drawing.Size(1142, 30);
             this.txtNotes.TabIndex = 1;
             // 
             // btnRotateRight
             // 
             this.btnRotateRight.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnRotateRight.Image = global::ImageSelector.Properties.Resources.image__2_;
-            this.btnRotateRight.Location = new System.Drawing.Point(644, 544);
+            this.btnRotateRight.Location = new System.Drawing.Point(668, 544);
             this.btnRotateRight.Name = "btnRotateRight";
             this.btnRotateRight.Padding = new System.Windows.Forms.Padding(5);
             this.btnRotateRight.Size = new System.Drawing.Size(30, 30);
@@ -262,55 +262,49 @@ namespace ImageSelector
             this.btnRotateLeft.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnRotateLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnRotateLeft.Image = global::ImageSelector.Properties.Resources.image__1_1;
-            this.btnRotateLeft.Location = new System.Drawing.Point(396, 543);
+            this.btnRotateLeft.Location = new System.Drawing.Point(420, 543);
             this.btnRotateLeft.Name = "btnRotateLeft";
             this.btnRotateLeft.Padding = new System.Windows.Forms.Padding(5);
             this.btnRotateLeft.Size = new System.Drawing.Size(30, 30);
             this.btnRotateLeft.TabIndex = 7;
             this.btnRotateLeft.Click += new System.EventHandler(this.btnRotateLeft_Click);
             // 
-            // lblNull
-            // 
-            this.lblNull.AutoSize = true;
-            this.lblNull.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.lblNull.Location = new System.Drawing.Point(1070, 30);
-            this.lblNull.Name = "lblNull";
-            this.lblNull.Size = new System.Drawing.Size(287, 525);
-            this.lblNull.TabIndex = 16;
-            this.lblNull.Text = resources.GetString("lblNull.Text");
-            // 
             // TrackBar
             // 
             this.TrackBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.TrackBar.LargeChange = 1;
-            this.TrackBar.Location = new System.Drawing.Point(428, 544);
+            this.TrackBar.Location = new System.Drawing.Point(452, 544);
             this.TrackBar.Maximum = 5;
             this.TrackBar.Name = "TrackBar";
             this.TrackBar.Size = new System.Drawing.Size(210, 45);
             this.TrackBar.TabIndex = 17;
             this.TrackBar.Scroll += new System.EventHandler(this.TrackBar_Scroll);
             // 
-            // panel1
+            // pnlContainer
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.pbCurrentImage);
-            this.panel1.Location = new System.Drawing.Point(12, 49);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(993, 488);
-            this.panel1.TabIndex = 18;
+            this.pnlContainer.AutoScroll = true;
+            this.pnlContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlContainer.BackColor = System.Drawing.Color.Transparent;
+            this.pnlContainer.Controls.Add(this.pbCurrentImage);
+            this.pnlContainer.Location = new System.Drawing.Point(0, 36);
+            this.pnlContainer.Name = "pnlContainer";
+            this.pnlContainer.Size = new System.Drawing.Size(1062, 502);
+            this.pnlContainer.TabIndex = 18;
             // 
             // pbCurrentImage
             // 
-            this.pbCurrentImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbCurrentImage.Location = new System.Drawing.Point(0, 0);
+            this.pbCurrentImage.BackColor = System.Drawing.Color.Transparent;
+            this.pbCurrentImage.Location = new System.Drawing.Point(0, -1);
             this.pbCurrentImage.Name = "pbCurrentImage";
-            this.pbCurrentImage.Size = new System.Drawing.Size(993, 488);
+            this.pbCurrentImage.Size = new System.Drawing.Size(470, 276);
+            this.pbCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbCurrentImage.TabIndex = 0;
             this.pbCurrentImage.TabStop = false;
-            this.pbCurrentImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCurrentImage_Paint);
             this.pbCurrentImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbCurrentImage_MouseDown);
+            this.pbCurrentImage.MouseEnter += new System.EventHandler(this.pbCurrentImage_MouseEnter);
             this.pbCurrentImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbCurrentImage_MouseMove);
             this.pbCurrentImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbCurrentImage_MouseUp);
             // 
@@ -318,10 +312,9 @@ namespace ImageSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1175, 654);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1223, 654);
+            this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.TrackBar);
-            this.Controls.Add(this.lblNull);
             this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.txtNotes);
             this.Controls.Add(this.btnOpen);
@@ -346,7 +339,7 @@ namespace ImageSelector
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmImageSelector_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgSelectedImages)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar)).EndInit();
-            this.panel1.ResumeLayout(false);
+            this.pnlContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbCurrentImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -371,11 +364,10 @@ namespace ImageSelector
         private DarkUI.Controls.DarkTextBox txtNotes;
         private DarkUI.Controls.DarkButton btnRotateRight;
         private DarkUI.Controls.DarkButton btnRotateLeft;
-        private DarkUI.Controls.DarkLabel lblNull;
         private DarkUI.Controls.DarkButton btnZoomIn;
         private DarkUI.Controls.DarkButton btnZoomOut;
         private System.Windows.Forms.TrackBar TrackBar;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlContainer;
         private System.Windows.Forms.PictureBox pbCurrentImage;
     }
 }

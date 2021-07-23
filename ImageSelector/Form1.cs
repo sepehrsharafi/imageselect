@@ -22,13 +22,11 @@ namespace ImageSelector
 
         string NotesPath;
 
-        PictureBox org;
-
         // pan
-        private Point startingPoint = Point.Empty;
-        private Point movingPoint = Point.Empty;
-        private bool panning = false;
-        Image tmpImage;
+        public System.Drawing.Point mouseDownPoint;//Storage mouse focus of global variables
+        public bool isSelected = false;
+
+        int CurrentZoom = 0;
 
         public string SelectedFolderPath
         {
@@ -59,10 +57,12 @@ namespace ImageSelector
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
+                    dgSelectedImages.Visible = true;
                     txtAddress.Text = fbd.SelectedPath;
                     Helper.FillSelectedImages(SelectedFolderPath, dgSelectedImages);
                     images = Helper.GetImages(txtAddress.Text);
                     CurrentIndex = 0;
+                    RestPictureBoxLocation();
                     ShowImage();
                 }
             }
@@ -97,9 +97,6 @@ namespace ImageSelector
 
             pbCurrentImage.Image = img;
             lblFileName.Text = Path.GetFileName(images[CurrentIndex]);
-
-            org = new PictureBox();
-            org.Image = pbCurrentImage.Image;
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -236,19 +233,7 @@ namespace ImageSelector
 
         private void dgSelectedImages_DataSourceChanged(object sender, EventArgs e)
         {
-            lblNull.Visible = false;
-        }
 
-        Image ZoomPicture(Image img, Size size)
-        {
-            double width = 1 + size.Width / 5.0;
-            double height = 1 + size.Width / 5.0;
-
-            Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * width),
-                Convert.ToInt32(img.Height * height));
-            Graphics gpu = Graphics.FromImage(bm);
-            gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            return bm;
         }
 
         private void btnRotateRight_Click(object sender, EventArgs e)
@@ -359,47 +344,89 @@ namespace ImageSelector
 
         private void TrackBar_Scroll(object sender, EventArgs e)
         {
+            pnlContainer.VerticalScroll.Value = 0;
             if (TrackBar.Value != 0)
             {
-                pbCurrentImage.SizeMode = PictureBoxSizeMode.AutoSize;
-                pbCurrentImage.Image = null;
-                pbCurrentImage.Image = ZoomPicture(org.Image, new Size(TrackBar.Value, TrackBar.Value)); ;
+                pbCurrentImage.Location = new Point(0, 0);
+                if (TrackBar.Value > CurrentZoom)
+                {
+                    CurrentZoom++;
+                    pbCurrentImage.Width += 150;
+                    pbCurrentImage.Height += 150;
+                }
+                else if (TrackBar.Value < CurrentZoom)
+                {
+                    CurrentZoom--;
+                    pbCurrentImage.Width -= 150;
+                    pbCurrentImage.Height -= 150;
+                }
+                pbCurrentImage.Refresh();
             }
             else
             {
-                pbCurrentImage.SizeMode = PictureBoxSizeMode.Zoom;
+                CurrentZoom = 0;
+                RestPictureBoxLocation();
             }
         }
 
+        void RestPictureBoxLocation()
+        {
+            pbCurrentImage.SizeMode = PictureBoxSizeMode.Zoom;
+            pbCurrentImage.Location = new Point(0, 0);
+            pbCurrentImage.Width = pnlContainer.Width - 10;
+            pbCurrentImage.Height = pnlContainer.Height - 10;
+            pbCurrentImage.Refresh();
+            pnlContainer.Refresh();
+        }
+
+        #region Panning
+
         private void pbCurrentImage_MouseUp(object sender, MouseEventArgs e)
         {
-            panning = false;
+            isSelected = false;
         }
 
         private void pbCurrentImage_MouseMove(object sender, MouseEventArgs e)
         {
-            if (panning)
+            if (isSelected && IsMouseInPanel())//Determined to have been within the range for the MouseDown event, and mouse in the picturebox
             {
-                movingPoint = new Point(e.Location.X - startingPoint.X,
-                                        e.Location.Y - startingPoint.Y);
-                pbCurrentImage.Invalidate();
+                this.pbCurrentImage.Left = this.pbCurrentImage.Left + (Cursor.Position.X - mouseDownPoint.X);
+                this.pbCurrentImage.Top = this.pbCurrentImage.Top + (Cursor.Position.Y - mouseDownPoint.Y);
+                mouseDownPoint.X = Cursor.Position.X;
+                mouseDownPoint.Y = Cursor.Position.Y;
             }
         }
 
         private void pbCurrentImage_MouseDown(object sender, MouseEventArgs e)
         {
-            panning = true;
-            startingPoint = new Point(e.Location.X - movingPoint.X,
-                                      e.Location.Y - movingPoint.Y);
-        }
-
-        private void pbCurrentImage_Paint(object sender, PaintEventArgs e)
-        {
-            if (pbCurrentImage.Image != null)
+            if (e.Button == MouseButtons.Left)
             {
-                e.Graphics.Clear(Color.Black);
-                e.Graphics.DrawImage(pbCurrentImage.Image, movingPoint);
+                mouseDownPoint.X = Cursor.Position.X;  //Note: The preceding has been defined as a global variable of type Point mouseDownPoint  
+                mouseDownPoint.Y = Cursor.Position.Y;
+                isSelected = true;
             }
         }
+
+        private void pbCurrentImage_MouseEnter(object sender, EventArgs e)
+        {
+            pbCurrentImage.Cursor = Cursors.SizeAll;
+        }
+
+        private bool IsMouseInPanel()
+        {
+            if (this.pbCurrentImage.Left < PointToClient(Cursor.Position).X
+                    && PointToClient(Cursor.Position).X < this.pbCurrentImage.Left
+                    + this.pbCurrentImage.Width && this.pbCurrentImage.Top
+                    < PointToClient(Cursor.Position).Y && PointToClient(Cursor.Position).Y
+                    < this.pbCurrentImage.Top + this.pbCurrentImage.Height)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }
